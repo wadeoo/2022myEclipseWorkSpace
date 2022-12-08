@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.model.member;
+package com.sm.lzd.model.member;
 
 public class ModifyMessage {
 	private String newEmail,newPhone,newMessage,backNews;

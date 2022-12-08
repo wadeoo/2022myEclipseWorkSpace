@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.util;
+package com.sm.lzd.util;
 
 import java.io.UnsupportedEncodingException;
 import org.apache.commons.codec.binary.Base64;

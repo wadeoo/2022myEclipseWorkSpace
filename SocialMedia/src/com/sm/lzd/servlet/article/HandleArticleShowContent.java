@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.article;
+package com.sm.lzd.servlet.article;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zifangsky.OnlineFriend.model.article.Article;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.article.Article;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleArticleShowContent extends HttpServlet{
 	public void init(ServletConfig config)throws ServletException{
@@ -22,7 +22,7 @@ public class HandleArticleShowContent extends HttpServlet{
 	}
 	
 	public void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException{
-		//æŸ¥çœ‹æ–‡ç« ä¸éœ€è¦ç™»å½•
+		//²é¿´ÎÄÕÂ²»ĞèÒªµÇÂ¼
 		continueDoGet(request,response);		
 	}
 

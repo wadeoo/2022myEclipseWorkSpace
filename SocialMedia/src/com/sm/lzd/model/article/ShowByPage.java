@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.model.article;
+package com.sm.lzd.model.article;
 
 import com.sun.rowset.CachedRowSetImpl;
 

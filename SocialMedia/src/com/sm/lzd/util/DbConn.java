@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.util;
+package com.sm.lzd.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 public class DbConn {	
 	/**
-	 * 通过JNDI连接池的方式
+	 * 閫氳繃JNDI杩炴帴姹犵殑鏂瑰紡
 	 * */
 	public static Connection getConnection(){
 		try {			
@@ -23,7 +23,7 @@ public class DbConn {
 	}
 	
 	/**
-	 * 最基本的方式
+	 * 鏈�鍩烘湰鐨勬柟寮�
 	 * */
 //	private static String driver = "com.mysql.jdbc.Driver";
 //	private static String url = "jdbc:mysql://127.0.0.1:3306/onlinefriend?useUnicode=true&characterEncoding=utf-8";
@@ -32,9 +32,9 @@ public class DbConn {
 	
 //	public static Connection getConnection(){
 //		try {
-//			//加载驱动
+//			//鍔犺浇椹卞姩
 //			Class.forName(driver);			
-//			//连接数据库
+//			//杩炴帴鏁版嵁搴�
 //			Connection conn = DriverManager.getConnection(url,user,passwd);
 //		
 //			return conn;						

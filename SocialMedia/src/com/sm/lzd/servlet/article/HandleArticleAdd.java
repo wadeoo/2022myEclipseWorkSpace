@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.article;
+package com.sm.lzd.servlet.article;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zifangsky.OnlineFriend.model.member.Login;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.member.Login;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleArticleAdd extends HttpServlet{
 	public void init(ServletConfig config)throws ServletException{
@@ -39,16 +39,16 @@ public class HandleArticleAdd extends HttpServlet{
 		HttpSession session = request.getSession(true);
 		Login loginBean = (Login) session.getAttribute("login");
 
-		String id = loginBean.getId();  //è·å–å·²ç™»ç”¨æˆ·å½•çš„id
+		String id = loginBean.getId();  //»ñÈ¡ÒÑµÇÓÃ»§Â¼µÄid
 	
-		//è·å–æäº¤çš„æ–‡ç« å‚æ•°
+		//»ñÈ¡Ìá½»µÄÎÄÕÂ²ÎÊı
 		String newTitle = StringUtil.xssEncode(request.getParameter("title"));
 		String newContent = StringUtil.xssEncode(request.getParameter("content"));
 		
 		if(StringUtil.isNotEmpty(newTitle)){
 			try {
 				Connection connection = DbConn.getConnection();
-				//æ–‡ç« idå·²ç»è®¾ç½®ä¸ºè‡ªå¢ï¼Œæ‰€ä»¥åœ¨è¿™é‡Œå°±ä¸ç”¨ç®¡äº†
+				//ÎÄÕÂidÒÑ¾­ÉèÖÃÎª×ÔÔö£¬ËùÒÔÔÚÕâÀï¾Í²»ÓÃ¹ÜÁË
 				PreparedStatement pStatement = connection.prepareStatement("insert into article(title,author,content) values(?,?,?)");
 				pStatement.setString(1, newTitle);
 				pStatement.setString(2, id);

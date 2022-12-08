@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.article;
+package com.sm.lzd.servlet.article;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zifangsky.OnlineFriend.model.article.Article;
-import com.zifangsky.OnlineFriend.model.article.ErrorMessage;
-import com.zifangsky.OnlineFriend.model.member.Login;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.article.Article;
+import com.sm.lzd.model.article.ErrorMessage;
+import com.sm.lzd.model.member.Login;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleArticleModify extends HttpServlet{
 	
@@ -25,7 +25,7 @@ public class HandleArticleModify extends HttpServlet{
 		super.init(config);
 	}
 	/**
-	 * get è¯·æ±‚å°†å¾…ä¿®æ”¹çš„ä¿¡æ¯å‘é€åˆ° article/modifyArticle.jsp ï¼Œè®©ç”¨æˆ·ä¿®æ”¹
+	 * get ÇëÇó½«´ıĞŞ¸ÄµÄĞÅÏ¢·¢ËÍµ½ article/modifyArticle.jsp £¬ÈÃÓÃ»§ĞŞ¸Ä
 	 * */
 	public void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException{
 		request.setCharacterEncoding("utf-8");
@@ -40,13 +40,13 @@ public class HandleArticleModify extends HttpServlet{
 		else{
 			String author = request.getParameter("author");
 			String id = loginBean.getId();
-			//æ£€éªŒç™»å½•ç”¨æˆ·å’Œæ–‡ç« ä½œè€…æ˜¯å¦æ˜¯åŒä¸€äºº
+			//¼ìÑéµÇÂ¼ÓÃ»§ºÍÎÄÕÂ×÷ÕßÊÇ·ñÊÇÍ¬Ò»ÈË
 			if(author.equals(id))
 				continueDoGet(request,response);  			
 			else {
 				ErrorMessage errorMessage = new ErrorMessage();
 				request.setAttribute("error", errorMessage);
-				errorMessage.setBackNews("æ‚¨æ²¡æœ‰æƒé™ä¿®æ”¹è¯¥æ–‡ç« ");
+				errorMessage.setBackNews("ÄúÃ»ÓĞÈ¨ÏŞĞŞ¸Ä¸ÃÎÄÕÂ");
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("article/error.jsp");
 				dispatcher.forward(request, response);	
@@ -58,7 +58,7 @@ public class HandleArticleModify extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 	
-		//è·å–å¾…ä¿®æ”¹æ–‡ç« çš„ id
+		//»ñÈ¡´ıĞŞ¸ÄÎÄÕÂµÄ id
 		String articleId = StringUtil.xssEncode(request.getParameter("articleId"));
 		Article article = new Article();
 		request.setAttribute("toModifyArticle", article);
@@ -85,7 +85,7 @@ public class HandleArticleModify extends HttpServlet{
 	}
 
 	/**
-	 * è·å–ç”¨æˆ·ä¿®æ”¹åçš„ä¿¡æ¯ï¼Œæ›´æ–°æ•°æ®åº“
+	 * »ñÈ¡ÓÃ»§ĞŞ¸ÄºóµÄĞÅÏ¢£¬¸üĞÂÊı¾İ¿â
 	 * */
 	public void doPost(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException{
 		request.setCharacterEncoding("utf-8");
@@ -98,13 +98,13 @@ public class HandleArticleModify extends HttpServlet{
 		else{
 			String author = request.getParameter("author");
 			String id = loginBean.getId();
-			//æ£€éªŒç™»å½•ç”¨æˆ·å’Œæ–‡ç« ä½œè€…æ˜¯å¦æ˜¯åŒä¸€äºº
+			//¼ìÑéµÇÂ¼ÓÃ»§ºÍÎÄÕÂ×÷ÕßÊÇ·ñÊÇÍ¬Ò»ÈË
 			if(author.equals(id))
 				continueDoPost(request,response);  			
 			else {
 				ErrorMessage errorMessage = new ErrorMessage();
 				request.setAttribute("error", errorMessage);
-				errorMessage.setBackNews("æ‚¨æ²¡æœ‰æƒé™ä¿®æ”¹è¯¥æ–‡ç« ");
+				errorMessage.setBackNews("ÄúÃ»ÓĞÈ¨ÏŞĞŞ¸Ä¸ÃÎÄÕÂ");
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("article/error.jsp");
 				dispatcher.forward(request, response);	
@@ -116,14 +116,14 @@ public class HandleArticleModify extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 	
-		//è·å–å¾…ä¿®æ”¹æ–‡ç« çš„ id,title,author,content
+		//»ñÈ¡´ıĞŞ¸ÄÎÄÕÂµÄ id,title,author,content
 		String articleId = StringUtil.xssEncode(request.getParameter("articleId"));
 		String title = StringUtil.xssEncode(request.getParameter("title"));
 		String content = StringUtil.xssEncode(request.getParameter("content"));
 		
 		try {
 			Connection connection = DbConn.getConnection();
-			//æ›´æ–°æ•°æ®åº“ä¿¡æ¯
+			//¸üĞÂÊı¾İ¿âĞÅÏ¢
 			PreparedStatement pStatement = connection.prepareStatement("update article set title=?,content=? where id=?");
 			pStatement.setString(1, title);
 			pStatement.setString(2, content);

@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.article;
+package com.sm.lzd.servlet.article;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zifangsky.OnlineFriend.model.article.ErrorMessage;
-import com.zifangsky.OnlineFriend.model.member.Login;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.article.ErrorMessage;
+import com.sm.lzd.model.member.Login;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleArticleDelete extends HttpServlet{
 	public void init(ServletConfig config)throws ServletException{
@@ -33,13 +33,13 @@ public class HandleArticleDelete extends HttpServlet{
 		else{
 			String author = request.getParameter("author");
 			String id = loginBean.getId();
-			//æ£€éªŒç™»å½•ç”¨æˆ·å’Œæ–‡ç« ä½œè€…æ˜¯å¦æ˜¯åŒä¸€äºº
+			//¼ìÑéµÇÂ¼ÓÃ»§ºÍÎÄÕÂ×÷ÕßÊÇ·ñÊÇÍ¬Ò»ÈË
 			if(author.equals(id))
 				continueDoPost(request,response);  			
 			else {
 				ErrorMessage errorMessage = new ErrorMessage();
 				request.setAttribute("error", errorMessage);
-				errorMessage.setBackNews("æ‚¨æ²¡æœ‰æƒé™åˆ é™¤è¯¥æ–‡ç« ");
+				errorMessage.setBackNews("ÄúÃ»ÓĞÈ¨ÏŞÉ¾³ı¸ÃÎÄÕÂ");
 				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("article/error.jsp");
 				dispatcher.forward(request, response);	
@@ -51,11 +51,11 @@ public class HandleArticleDelete extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 	
-		//è·å–å¾…åˆ é™¤æ–‡ç« çš„ id
+		//»ñÈ¡´ıÉ¾³ıÎÄÕÂµÄ id
 		String articleId = StringUtil.xssEncode(request.getParameter("articleId"));
 		try {
 			Connection connection = DbConn.getConnection();
-			//ä»æ•°æ®åº“ä¸­åˆ é™¤
+			//´ÓÊı¾İ¿âÖĞÉ¾³ı
 			PreparedStatement pStatement = connection.prepareStatement("delete from article where id=?");
 			pStatement.setString(1, articleId);
 	

@@ -1,9 +1,9 @@
-package com.zifangsky.OnlineFriend.model.member;
+package com.sm.lzd.model.member;
 
 public class Register {
-	private String id,password,email,phone,message;  //娉ㄥ唽鍐呭
-	private String backNews;  //娉ㄥ唽杩斿洖淇℃伅
-	private boolean registerSuccess = false;  //鏄惁娉ㄥ唽鎴愬姛
+	private String id,password,email,phone,message;  //注册内容
+	private String backNews;  //注册返回信息
+	private boolean registerSuccess = false;  //是否注册成功
 
 	public String getId() {
 		return id;

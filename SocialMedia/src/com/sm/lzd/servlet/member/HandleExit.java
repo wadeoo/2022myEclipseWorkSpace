@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.member;
+package com.sm.lzd.servlet.member;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zifangsky.OnlineFriend.model.member.Login;
+import com.sm.lzd.model.member.Login;
 
 public class HandleExit extends HttpServlet{
 	public void init(ServletConfig config)throws ServletException{
@@ -24,9 +24,9 @@ public class HandleExit extends HttpServlet{
 			return;
 		}
 		else{
-			//娉ㄩ攢
-			session.invalidate();  //閿�姣乻ession瀵硅薄
-			response.sendRedirect("index.jsp");  //閲嶅畾鍚戝埌棣栭〉
+			//注销
+			session.invalidate();  //销毁session对象
+			response.sendRedirect("index.jsp");  //重定向到首页
 			return;
 		}		
 	}

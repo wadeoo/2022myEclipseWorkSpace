@@ -1,8 +1,8 @@
-package com.zifangsky.OnlineFriend.model.member;
+package com.sm.lzd.model.member;
 
 public class Login {
 	private String id,password,backNews;
-	private boolean loginSuccess = false;  //是否已登录
+	private boolean loginSuccess = false;  //�Ƿ��ѵ�¼
 	
 	public String getId() {
 		return id;

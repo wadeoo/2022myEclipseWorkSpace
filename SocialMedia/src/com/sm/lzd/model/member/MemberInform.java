@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.model.member;
+package com.sm.lzd.model.member;
 
 public class MemberInform {
 	private String id,email,phone,message,pic,backNews;  //显示成员信息

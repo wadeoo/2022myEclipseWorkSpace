@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.model.member;
+package com.sm.lzd.model.member;
 
 import java.util.List;
 

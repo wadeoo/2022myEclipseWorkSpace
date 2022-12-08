@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.util;
+package com.sm.lzd.servlet.util;
 
 public class HandleCheckPermission {
 

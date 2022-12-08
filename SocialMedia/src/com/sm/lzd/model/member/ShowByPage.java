@@ -1,12 +1,12 @@
-package com.zifangsky.OnlineFriend.model.member;
+package com.sm.lzd.model.member;
 
 import com.sun.rowset.CachedRowSetImpl;
 
 public class ShowByPage {
-	int pageSize = 10;  //æ¯é¡µæ˜¾ç¤ºçš„è®°å½•æ•°
-	int pageAllCount = 0;  //åˆ†é¡µåçš„æ€»é¡µæ•°
-	int showPage = 1;  //å½“å‰æ˜¾ç¤ºé¡µ
-	StringBuffer presentPageResult;  //æ˜¾ç¤ºå½“å‰é¡µå†…å®¹
+	int pageSize = 10;  //Ã¿Ò³ÏÔÊ¾µÄ¼ÇÂ¼Êı
+	int pageAllCount = 0;  //·ÖÒ³ºóµÄ×ÜÒ³Êı
+	int showPage = 1;  //µ±Ç°ÏÔÊ¾Ò³
+	StringBuffer presentPageResult;  //ÏÔÊ¾µ±Ç°Ò³ÄÚÈİ
 
 	public int getPageSize() {
 		return pageSize;

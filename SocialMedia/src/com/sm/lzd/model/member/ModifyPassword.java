@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.model.member;
+package com.sm.lzd.model.member;
 
 public class ModifyPassword {
 	private String newPassword,backNews;

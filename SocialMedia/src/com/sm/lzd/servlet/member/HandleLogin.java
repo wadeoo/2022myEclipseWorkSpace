@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.member;
+package com.sm.lzd.servlet.member;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zifangsky.OnlineFriend.model.member.Login;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.member.Login;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleLogin extends HttpServlet{
-	private String backNews = "";  //ç™»å½•çŠ¶æ€è¿”å›ä¿¡æ¯
+	private String backNews = "";  //µÇÂ¼×´Ì¬·µ»ØĞÅÏ¢
 	
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
@@ -29,10 +29,10 @@ public class HandleLogin extends HttpServlet{
 		response.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(true);
 		
-		//è·å–éªŒè¯ç 
+		//»ñÈ¡ÑéÖ¤Âë
 		String validateCode = StringUtil.xssEncode(request.getParameter("validateCode").trim());
 		Object checkcode = session.getAttribute("checkcode");
-		//å°†è¾“å…¥çš„éªŒè¯ç ä¸­çš„å°å†™å­—æ¯è½¬æ¢æˆå¤§å†™ï¼Œå†å’ŒéªŒè¯ç ç”Ÿæˆæ—¶ä¿å­˜åœ¨sessionä¸­çš„å­—ç¬¦ä¸²æ¯”è¾ƒ		
+		//½«ÊäÈëµÄÑéÖ¤ÂëÖĞµÄĞ¡Ğ´×ÖÄ¸×ª»»³É´óĞ´£¬ÔÙºÍÑéÖ¤ÂëÉú³ÉÊ±±£´æÔÚsessionÖĞµÄ×Ö·û´®±È½Ï		
 		if(checkcode != null && checkcode.equals(StringUtil.convertToCapitalString(validateCode))){
 			session.removeAttribute("checkcode");
 			continueDoPost(request,response);
@@ -60,20 +60,20 @@ public class HandleLogin extends HttpServlet{
 			session.setAttribute("login", loginBean);
 		}
 		
-		//è·å–ç™»å½•çš„å‚æ•°
+		//»ñÈ¡µÇÂ¼µÄ²ÎÊı
 		String id = StringUtil.xssEncode(request.getParameter("id").trim());
 		String password = StringUtil.xssEncode(request.getParameter("password").trim());
 		
 		boolean loginOk = loginBean.isLoginSuccess();
 		
 		if(loginOk&&(id.equals(loginBean.getId())&&(password.equals(loginBean.getPassword())) )){
-			backNews = "å°Šæ•¬çš„ä¼šå‘˜ï¼š"+id+",æ‚¨å·²ç»ç™»å½•ï¼Œæ— éœ€é‡å¤ç™»å½•ï¼";
+			backNews = "×ğ¾´µÄ»áÔ±£º"+id+",ÄúÒÑ¾­µÇÂ¼£¬ÎŞĞèÖØ¸´µÇÂ¼£¡";
 			loginBean.setBackNews(backNews);
 		}
 		else{
-			boolean chkLength = id.length()>0 && password.length()>0;  //åˆ¤æ–­ç”¨æˆ·åå’Œå¯†ç æ˜¯å¦ä¸ºç©º
+			boolean chkLength = id.length()>0 && password.length()>0;  //ÅĞ¶ÏÓÃ»§ÃûºÍÃÜÂëÊÇ·ñÎª¿Õ
 			if(chkLength){
-				//è¿æ¥æ•°æ®åº“è¿›è¡ŒæŸ¥è¯¢éªŒè¯ç™»å½•æ˜¯å¦æ­£ç¡®
+				//Á¬½ÓÊı¾İ¿â½øĞĞ²éÑ¯ÑéÖ¤µÇÂ¼ÊÇ·ñÕıÈ·
 				Connection connection = DbConn.getConnection();
 				try {
 					PreparedStatement pStatement = connection.prepareStatement("select id from member where id=? and password =?");
@@ -82,28 +82,28 @@ public class HandleLogin extends HttpServlet{
 					ResultSet resultSet = pStatement.executeQuery();
 
 					if(resultSet.next()){
-						backNews = "ç™»å½•æˆåŠŸ";
+						backNews = "µÇÂ¼³É¹¦";
 						loginBean.setId(id);
 						loginBean.setPassword(password);
 						loginBean.setLoginSuccess(true);
 						loginBean.setBackNews(backNews);
 					}
 					else{
-						backNews = "æ‚¨è¾“å…¥çš„ç”¨æˆ·åä¸å­˜åœ¨ï¼Œæˆ–å¯†ç ä¸åŒ¹é…";
+						backNews = "ÄúÊäÈëµÄÓÃ»§Ãû²»´æÔÚ£¬»òÃÜÂë²»Æ¥Åä";
 						loginBean.setId(id);
 						loginBean.setLoginSuccess(false);
 						loginBean.setBackNews(backNews);
 					}
 					connection.close();
 				} catch (SQLException e) {
-					backNews = "æ‚¨è¾“å…¥çš„ç”¨æˆ·åä¸å­˜åœ¨ï¼Œæˆ–å¯†ç ä¸åŒ¹é…";
+					backNews = "ÄúÊäÈëµÄÓÃ»§Ãû²»´æÔÚ£¬»òÃÜÂë²»Æ¥Åä";
 					loginBean.setId(id);
 					loginBean.setLoginSuccess(false);
 					loginBean.setBackNews(backNews);
 				}			
 			}
 			else{
-				backNews = "ç”¨æˆ·åå’Œå¯†ç ä¸èƒ½ä¸ºç©º";
+				backNews = "ÓÃ»§ÃûºÍÃÜÂë²»ÄÜÎª¿Õ";
 				loginBean.setId(id);
 				loginBean.setLoginSuccess(false);
 				loginBean.setBackNews(backNews);

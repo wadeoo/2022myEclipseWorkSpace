@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.article;
+package com.sm.lzd.servlet.article;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.sun.rowset.CachedRowSetImpl;
-import com.zifangsky.OnlineFriend.model.article.ShowByPage;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.article.ShowByPage;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleArticleShowList extends HttpServlet{
 	private CachedRowSetImpl rowSet = null;
@@ -26,7 +26,7 @@ public class HandleArticleShowList extends HttpServlet{
 	}
 	
 	public void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException{
-		//æŸ¥çœ‹æ–‡ç« ä¸éœ€è¦ç™»å½•
+		//²é¿´ÎÄÕÂ²»ĞèÒªµÇÂ¼
 		continueDoGet(request,response);		
 	}
 
@@ -47,11 +47,11 @@ public class HandleArticleShowList extends HttpServlet{
 			session.setAttribute("showAllTitle", showByPageBean);
 		}
 		
-		showByPageBean.setPageSize(10);  //æ¯é¡µæ˜¾ç¤º10ç¯‡æ–‡ç« 
+		showByPageBean.setPageSize(10);  //Ã¿Ò³ÏÔÊ¾10ÆªÎÄÕÂ
 		
 		String showPageString = StringUtil.xssEncode(request.getParameter("showPage"));
-		int showPage = 1;  //åˆå§‹é»˜è®¤æ˜¾ç¤ºç¬¬ä¸€é¡µ
-		if(showPageString != null)  //ç¬¬ä¸€æ¬¡ä»é¦–é¡µæäº¤çš„æ—¶å€™ï¼ŒshowPageå‚æ•°ä¸å­˜åœ¨
+		int showPage = 1;  //³õÊ¼Ä¬ÈÏÏÔÊ¾µÚÒ»Ò³
+		if(showPageString != null)  //µÚÒ»´Î´ÓÊ×Ò³Ìá½»µÄÊ±ºò£¬showPage²ÎÊı²»´æÔÚ
 			showPage = Integer.parseInt(showPageString);
 
 		if(showPage > showByPageBean.getPageAllCount()) 
@@ -60,7 +60,7 @@ public class HandleArticleShowList extends HttpServlet{
 			showPage = showByPageBean.getPageAllCount();
 		showByPageBean.setShowPage(showPage);
 		
-		//è¿æ¥æ•°æ®åº“è¿›è¡ŒæŸ¥è¯¢æ–‡ç« åˆ—è¡¨
+		//Á¬½ÓÊı¾İ¿â½øĞĞ²éÑ¯ÎÄÕÂÁĞ±í
 		Connection connection = DbConn.getConnection();
 		try {
 			PreparedStatement pStatement = connection.prepareStatement("select id,title from article");
@@ -68,8 +68,8 @@ public class HandleArticleShowList extends HttpServlet{
 			rowSet = new CachedRowSetImpl();
 			rowSet.populate(resultSet);
 			rowSet.last();
-			int m = rowSet.getRow();  //æ€»è¡Œæ•°
-			int n = showByPageBean.getPageSize();  //æ¯é¡µæ˜¾ç¤ºè®°å½•
+			int m = rowSet.getRow();  //×ÜĞĞÊı
+			int n = showByPageBean.getPageSize();  //Ã¿Ò³ÏÔÊ¾¼ÇÂ¼
 			if(m % n == 0)
 				showByPageBean.setPageAllCount(m / n);
 			else 

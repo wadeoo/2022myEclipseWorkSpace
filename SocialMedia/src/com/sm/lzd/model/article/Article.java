@@ -1,8 +1,8 @@
-package com.zifangsky.OnlineFriend.model.article;
+package com.sm.lzd.model.article;
 
 public class Article {
-	private int id;  //鏂囩珷id
-	private String title,author,content;  //鏂伴椈鏍囬锛屼綔鑰咃紝姝ｆ枃
+	private int id;  //文章id
+	private String title,author,content;  //新闻标题，作者，正文
 	public int getId() {
 		return id;
 	}

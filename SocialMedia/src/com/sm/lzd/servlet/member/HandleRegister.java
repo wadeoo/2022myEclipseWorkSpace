@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.member;
+package com.sm.lzd.servlet.member;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.zifangsky.OnlineFriend.model.member.Register;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.member.Register;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleRegister extends HttpServlet{
-	private String backNews = "",pic = "public.jpg";  //pic为图片信息
+	private String backNews = "",pic = "public.jpg";  //pic涓哄浘鐗囦俊鎭�
 	
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
@@ -28,17 +28,17 @@ public class HandleRegister extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		//获取注册信息
+		//鑾峰彇娉ㄥ唽淇℃伅
 		String id = StringUtil.xssEncode(request.getParameter("id").trim());
 		String password = StringUtil.xssEncode(request.getParameter("password").trim());
 		String email = StringUtil.xssEncode(request.getParameter("email").trim());
 		String phone = StringUtil.xssEncode(request.getParameter("phone").trim());
 		String message = StringUtil.xssEncode(request.getParameter("message"));
 		
-		boolean isSuccess = false;  //判断注册信息是否符合规定
+		boolean isSuccess = false;  //鍒ゆ柇娉ㄥ唽淇℃伅鏄惁绗﹀悎瑙勫畾
 		if(StringUtil.isNotEmpty(id) &&StringUtil.isNotEmpty(password)){
 			isSuccess = true;
-			//判断id是否符合标准
+			//鍒ゆ柇id鏄惁绗﹀悎鏍囧噯
 			for(int i=0;i<id.length();i++){
 				char c = id.charAt(i);
 				if(!((c>='a'&&c<='z') || (c>='A'&&c<='Z') || (c>='0'&&c<='9'))){
@@ -48,7 +48,7 @@ public class HandleRegister extends HttpServlet{
 			}
 		}
 				
-		//向 mysql 中注册用户			
+		//鍚� mysql 涓敞鍐岀敤鎴�			
 		try {	
 			if(isSuccess){
 				Connection conn = DbConn.getConnection();
@@ -60,10 +60,10 @@ public class HandleRegister extends HttpServlet{
 				preparedStatement.setString(5, message);
 				preparedStatement.setString(6, pic);
 				
-				//执行成功返回行数大于0
+				//鎵ц鎴愬姛杩斿洖琛屾暟澶т簬0
 				int num = preparedStatement.executeUpdate();
 				if(num != 0){
-					backNews = "注册成功";
+					backNews = "娉ㄥ唽鎴愬姛";
 					registerBean.setBackNews(backNews);
 					registerBean.setId(id);
 					registerBean.setPassword(password);
@@ -76,11 +76,11 @@ public class HandleRegister extends HttpServlet{
 				conn.close();
 			}
 			else{
-				backNews = "信息填写不完整或者名字中有非法字符";
+				backNews = "淇℃伅濉啓涓嶅畬鏁存垨鑰呭悕瀛椾腑鏈夐潪娉曞瓧绗�";
 				registerBean.setBackNews(backNews);
 			}			
 		} catch (SQLException e) {
-			backNews = "该ID已被使用，请更换ID";
+			backNews = "璇D宸茶浣跨敤锛岃鏇存崲ID";
 			registerBean.setBackNews(backNews);
 		}
 				

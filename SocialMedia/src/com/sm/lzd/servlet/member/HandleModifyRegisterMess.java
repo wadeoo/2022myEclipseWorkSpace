@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.member;
+package com.sm.lzd.servlet.member;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zifangsky.OnlineFriend.model.member.Login;
-import com.zifangsky.OnlineFriend.model.member.ModifyMessage;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.member.Login;
+import com.sm.lzd.model.member.ModifyMessage;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleModifyRegisterMess extends HttpServlet{
 	
@@ -43,16 +43,16 @@ public class HandleModifyRegisterMess extends HttpServlet{
 		HttpSession session = request.getSession(true);
 		Login loginBean = (Login) session.getAttribute("login");
 		
-		String id = loginBean.getId();  //获取已登用户录的id
+		String id = loginBean.getId();  //鑾峰彇宸茬櫥鐢ㄦ埛褰曠殑id
 		ModifyMessage modifyMessage = new ModifyMessage();
 		request.setAttribute("modifyMess", modifyMessage);
 		
-		//获取输入参数
+		//鑾峰彇杈撳叆鍙傛暟
 		String newEmail = StringUtil.xssEncode(request.getParameter("newEmail").trim());
 		String newPhone = StringUtil.xssEncode(request.getParameter("newPhone").trim());
 		String newMessage = StringUtil.xssEncode(request.getParameter("newMessage"));
 		
-		//开始更新
+		//寮�濮嬫洿鏂�
 		Connection connection = DbConn.getConnection();
 		try {
 			PreparedStatement pStatement = connection.prepareStatement("update member set email=?,phone=?,message=? where id=?");
@@ -63,17 +63,17 @@ public class HandleModifyRegisterMess extends HttpServlet{
 			
 			int num = pStatement.executeUpdate();
 			if(num == 1){
-				modifyMessage.setBackNews("修改信息成功");
+				modifyMessage.setBackNews("淇敼淇℃伅鎴愬姛");
 				modifyMessage.setModifyRegisterMessageOk(true);
 				modifyMessage.setNewEmail(newEmail);
 				modifyMessage.setNewPhone(newPhone);
 				modifyMessage.setNewMessage(newMessage);
 			}
 			else
-				modifyMessage.setBackNews("更新失败，信息填写不完整或信息中含有非法字符");
+				modifyMessage.setBackNews("鏇存柊澶辫触锛屼俊鎭～鍐欎笉瀹屾暣鎴栦俊鎭腑鍚湁闈炴硶瀛楃");
 			connection.close();
 		} catch (Exception e) {
-			modifyMessage.setBackNews("信息更新失败");
+			modifyMessage.setBackNews("淇℃伅鏇存柊澶辫触");
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("member/showModifyRegisterMess.jsp");

@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.member;
+package com.sm.lzd.servlet.member;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import com.sun.rowset.CachedRowSetImpl;
-import com.zifangsky.OnlineFriend.model.member.Login;
-import com.zifangsky.OnlineFriend.model.member.MemberInform;
-import com.zifangsky.OnlineFriend.model.member.ShowByPage;
-import com.zifangsky.OnlineFriend.util.DbConn;
-import com.zifangsky.OnlineFriend.util.StringUtil;
+import com.sm.lzd.model.member.Login;
+import com.sm.lzd.model.member.MemberInform;
+import com.sm.lzd.model.member.ShowByPage;
+import com.sm.lzd.util.DbConn;
+import com.sm.lzd.util.StringUtil;
 
 public class HandleShowMember extends HttpServlet{
 	private CachedRowSetImpl rowSet = null;
@@ -34,7 +34,7 @@ public class HandleShowMember extends HttpServlet{
 			return;
 		}
 		else
-			continueDoPost(request,response);  //显示全体成员信息
+			continueDoPost(request,response);  //鏄剧ず鍏ㄤ綋鎴愬憳淇℃伅
 	
 	}
 
@@ -43,7 +43,7 @@ public class HandleShowMember extends HttpServlet{
 		response.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(true);
 		ShowByPage showByPageBean = null;
-		//因为涉及到翻页问题，需要这个bean长期存在，scope设为session
+		//鍥犱负娑夊強鍒扮炕椤甸棶棰橈紝闇�瑕佽繖涓猙ean闀挎湡瀛樺湪锛宻cope璁句负session
 		try {
 			showByPageBean = (ShowByPage) session.getAttribute("showAllMember");
 			if(showByPageBean == null){
@@ -55,7 +55,7 @@ public class HandleShowMember extends HttpServlet{
 			session.setAttribute("showAllMember", showByPageBean);
 		}
 		
-		showByPageBean.setPageSize(3);  //每页显示3条数据
+		showByPageBean.setPageSize(3);  //姣忛〉鏄剧ず3鏉℃暟鎹�
 		int showPage = Integer.parseInt(StringUtil.xssEncode(request.getParameter("showPage")));
 		if(showPage > showByPageBean.getPageAllCount())
 			showPage = 1;
@@ -69,9 +69,9 @@ public class HandleShowMember extends HttpServlet{
 			ResultSet resultSet = pStatement.executeQuery();
 			rowSet = new CachedRowSetImpl();
 			rowSet.populate(resultSet);			
-			rowSet.last();  //指向结果集的末尾
-			int m = rowSet.getRow();  //总行数
-			int n = showByPageBean.getPageSize();  //每页显示的记录数
+			rowSet.last();  //鎸囧悜缁撴灉闆嗙殑鏈熬
+			int m = rowSet.getRow();  //鎬昏鏁�
+			int n = showByPageBean.getPageSize();  //姣忛〉鏄剧ず鐨勮褰曟暟
 			if(m%n ==0)
 				showByPageBean.setPageAllCount(m/n);
 			else
@@ -97,14 +97,14 @@ public class HandleShowMember extends HttpServlet{
 		if(loginBean == null)
 			response.sendRedirect("login.jsp");
 		else
-			continueDoGet(request, response);  //显示指定成员信息
+			continueDoGet(request, response);  //鏄剧ず鎸囧畾鎴愬憳淇℃伅
 	}
 
 	private void continueDoGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		//指定成员的id
+		//鎸囧畾鎴愬憳鐨刬d
 		String id = StringUtil.xssEncode(request.getParameter("selectedId"));
 		MemberInform memberInformBean = new MemberInform();
 		request.setAttribute("memberInform", memberInformBean);
@@ -115,7 +115,7 @@ public class HandleShowMember extends HttpServlet{
 			preparedStatement.setString(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()){
-				memberInformBean.setBackNews("查询到的会员信息：");
+				memberInformBean.setBackNews("鏌ヨ鍒扮殑浼氬憳淇℃伅锛�");
 				memberInformBean.setSelectOk(true);
 				memberInformBean.setId(resultSet.getString(1));
 				memberInformBean.setEmail(resultSet.getString(2));
@@ -124,12 +124,12 @@ public class HandleShowMember extends HttpServlet{
 				memberInformBean.setPic(resultSet.getString(5));
 			}
 			else
-				memberInformBean.setBackNews("未查到任何信息。。。");
+				memberInformBean.setBackNews("鏈煡鍒颁换浣曚俊鎭�傘�傘��");
 		
 			preparedStatement.close();
 			connection.close();
 		} catch (Exception e) {
-			memberInformBean.setBackNews("未查到任何信息。。。");
+			memberInformBean.setBackNews("鏈煡鍒颁换浣曚俊鎭�傘�傘��");
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("member/showLookedMember.jsp");

@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.member;
+package com.sm.lzd.servlet.member;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * ç”Ÿæˆéšæœºå›¾ç‰‡ç”¨åšéªŒè¯ç 
+ * Éú³ÉËæ»úÍ¼Æ¬ÓÃ×öÑéÖ¤Âë
  * */
 public class HandleDrawValidateCode extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	private static final int WIDTH = 120;  //å›¾ç‰‡å®½åº¦
-	private static final int HEIGHT = 30;  //å›¾ç‰‡é«˜åº¦
+	private static final int WIDTH = 120;  //Í¼Æ¬¿í¶È
+	private static final int HEIGHT = 30;  //Í¼Æ¬¸ß¶È
 		
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
@@ -34,36 +34,36 @@ public class HandleDrawValidateCode extends HttpServlet{
 
 		HttpSession session = request.getSession(true);
 		
-		//åˆ›å»ºä¸€å¼ å›¾ç‰‡
+		//´´½¨Ò»ÕÅÍ¼Æ¬
 		BufferedImage bufferedImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-		//å¾—åˆ°å›¾ç‰‡
+		//µÃµ½Í¼Æ¬
 		Graphics graphics = bufferedImage.getGraphics();
-		//è®¾ç½®å›¾ç‰‡èƒŒæ™¯è‰²
+		//ÉèÖÃÍ¼Æ¬±³¾°É«
 		setBackGround(graphics);
-		//è®¾ç½®å›¾ç‰‡è¾¹æ¡†
+		//ÉèÖÃÍ¼Æ¬±ß¿ò
 		setBordor(graphics);
-		//åœ¨å›¾ç‰‡ä¸Šç”»å¹²æ‰°çº¿ï¼Œç”¨äº†4ç§é¢œè‰²ï¼Œå…±20æ¡çº¿æ¡
+		//ÔÚÍ¼Æ¬ÉÏ»­¸ÉÈÅÏß£¬ÓÃÁË4ÖÖÑÕÉ«£¬¹²20ÌõÏßÌõ
 		drawRandomLine(graphics,Color.GREEN);
 		drawRandomLine(graphics,new Color(246,255,145));
 		drawRandomLine(graphics,new Color(225,174,252));
 		drawRandomLine(graphics,new Color(120,202,254));
-		//åœ¨å›¾ç‰‡ä¸Šå†™éšæœºå­—ç¬¦ï¼Œå¹¶è®°å½•ç”Ÿæˆçš„åºåˆ—
+		//ÔÚÍ¼Æ¬ÉÏĞ´Ëæ»ú×Ö·û£¬²¢¼ÇÂ¼Éú³ÉµÄĞòÁĞ
 		String randomText = drawRandomText((Graphics2D) graphics);
 		
 		session.setAttribute("checkcode", randomText);
-		//è®¾ç½®å“åº”å¤´é€šçŸ¥æµè§ˆå™¨ä»¥å›¾ç‰‡çš„å½¢å¼æ‰“å¼€
+		//ÉèÖÃÏìÓ¦Í·Í¨Öªä¯ÀÀÆ÷ÒÔÍ¼Æ¬µÄĞÎÊ½´ò¿ª
 		response.setContentType("image/jpeg");
-		//è®¾ç½®å“åº”å¤´æ§åˆ¶æµè§ˆå™¨ä¸è¦ç¼“å­˜
+		//ÉèÖÃÏìÓ¦Í·¿ØÖÆä¯ÀÀÆ÷²»Òª»º´æ
 		response.setDateHeader("expries", -1);
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
-		//å°†å›¾ç‰‡å†™ç»™æµè§ˆå™¨
+		//½«Í¼Æ¬Ğ´¸øä¯ÀÀÆ÷
 		ImageIO.write(bufferedImage, "jpg", response.getOutputStream());
 
 	}
 	
 	/**
-	 * è®¾ç½®å›¾ç‰‡èƒŒæ™¯è‰²
+	 * ÉèÖÃÍ¼Æ¬±³¾°É«
 	 * */
 	private void setBackGround(Graphics graphics) {
 		graphics.setColor(Color.WHITE);
@@ -71,7 +71,7 @@ public class HandleDrawValidateCode extends HttpServlet{
 	}
 
 	/**
-	 * è®¾ç½®å›¾ç‰‡è¾¹æ¡†
+	 * ÉèÖÃÍ¼Æ¬±ß¿ò
 	 * */
 	private void setBordor(Graphics graphics) {
 		graphics.setColor(Color.BLUE);
@@ -79,11 +79,11 @@ public class HandleDrawValidateCode extends HttpServlet{
 	}
 	
 	/**
-	 * åœ¨å›¾ç‰‡ä¸Šç”»å¹²æ‰°çº¿
+	 * ÔÚÍ¼Æ¬ÉÏ»­¸ÉÈÅÏß
 	 * */
 	private void drawRandomLine(Graphics graphics,Color color) {
 		graphics.setColor(color);
-		//è®¾ç½®çº¿æ¡ä¸ªæ•°å¹¶ç”»çº¿
+		//ÉèÖÃÏßÌõ¸öÊı²¢»­Ïß
 		for(int i = 0;i < 5;i++){
 			int x1 = new Random().nextInt(WIDTH);
 			int x2 = new Random().nextInt(WIDTH);
@@ -94,34 +94,34 @@ public class HandleDrawValidateCode extends HttpServlet{
 	}
 	
 	/**
-	 * åœ¨å›¾ç‰‡ä¸Šå†™éšæœºå­—ç¬¦ï¼Œæ•°å­—å’Œå­—æ¯çš„ç»„åˆ
-	 * @param length å­—ç¬¦ä¸²çš„é•¿åº¦
+	 * ÔÚÍ¼Æ¬ÉÏĞ´Ëæ»ú×Ö·û£¬Êı×ÖºÍ×ÖÄ¸µÄ×éºÏ
+	 * @param length ×Ö·û´®µÄ³¤¶È
 	 * 
-	 * @return è¿”å›ç”Ÿæˆçš„å­—ç¬¦ä¸²åºåˆ—
+	 * @return ·µ»ØÉú³ÉµÄ×Ö·û´®ĞòÁĞ
 	 * */
 	private String drawRandomText(Graphics2D graphics) {
 		graphics.setColor(Color.RED);
-		graphics.setFont(new Font("å®‹ä½“", Font.BOLD, 20));
+		graphics.setFont(new Font("ËÎÌå", Font.BOLD, 20));
 		
-		//æ•°å­—å’Œå­—æ¯çš„ç»„åˆ
+		//Êı×ÖºÍ×ÖÄ¸µÄ×éºÏ
 		String baseNumLetter = "123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
 		StringBuffer sBuffer = new StringBuffer();
 		
-		int x = 5;  //æ—‹è½¬åŸç‚¹çš„ x åæ ‡
+		int x = 5;  //Ğı×ªÔ­µãµÄ x ×ø±ê
 		String ch = "";
 		Random random = new Random();
 		for(int i = 0;i < 4;i++){
-			//è®¾ç½®å­—ä½“æ—‹è½¬è§’åº¦
-			int degree = random.nextInt() % 30;  //è§’åº¦å°äº30åº¦
+			//ÉèÖÃ×ÖÌåĞı×ª½Ç¶È
+			int degree = random.nextInt() % 30;  //½Ç¶ÈĞ¡ÓÚ30¶È
 			int dot = random.nextInt(baseNumLetter.length());
 			ch = baseNumLetter.charAt(dot) + ""; 
 			sBuffer.append(ch);
 			
-			//æ­£å‘æ—‹è½¬
+			//ÕıÏòĞı×ª
 			graphics.rotate(degree * Math.PI / 180, x, 20);
 			graphics.drawString(ch, x, 20);
 			
-			//åå‘æ—‹è½¬
+			//·´ÏòĞı×ª
 			graphics.rotate(-degree * Math.PI / 180, x, 20);
 			x += 30;
 		}

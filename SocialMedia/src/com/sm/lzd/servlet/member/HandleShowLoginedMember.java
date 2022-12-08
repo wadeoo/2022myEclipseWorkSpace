@@ -1,4 +1,4 @@
-package com.zifangsky.OnlineFriend.servlet.member;
+package com.sm.lzd.servlet.member;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zifangsky.OnlineFriend.model.member.Login;
-import com.zifangsky.OnlineFriend.model.member.MemberInform;
-import com.zifangsky.OnlineFriend.util.DbConn;
+import com.sm.lzd.model.member.Login;
+import com.sm.lzd.model.member.MemberInform;
+import com.sm.lzd.util.DbConn;
 
 public class HandleShowLoginedMember extends HttpServlet{
 
@@ -32,7 +32,7 @@ public class HandleShowLoginedMember extends HttpServlet{
 			return;
 		}
 		else
-			continueDoGet(request, response);  //显示登录的成员信息
+			continueDoGet(request, response);  //鏄剧ず鐧诲綍鐨勬垚鍛樹俊鎭�
 	}
 
 	private void continueDoGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
@@ -51,7 +51,7 @@ public class HandleShowLoginedMember extends HttpServlet{
 			preparedStatement.setString(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()){
-				memberInformBean.setBackNews("个人信息：");
+				memberInformBean.setBackNews("涓汉淇℃伅锛�");
 				memberInformBean.setSelectOk(true);
 				memberInformBean.setId(resultSet.getString(1));
 				memberInformBean.setEmail(resultSet.getString(2));
@@ -60,12 +60,12 @@ public class HandleShowLoginedMember extends HttpServlet{
 				memberInformBean.setPic(resultSet.getString(5));
 			}
 			else
-				memberInformBean.setBackNews("未查到任何信息。。。");
+				memberInformBean.setBackNews("鏈煡鍒颁换浣曚俊鎭�傘�傘��");
 		
 			preparedStatement.close();
 			connection.close();
 		} catch (Exception e) {
-			memberInformBean.setBackNews("未查到任何信息。。。");
+			memberInformBean.setBackNews("鏈煡鍒颁换浣曚俊鎭�傘�傘��");
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("member/index.jsp");
