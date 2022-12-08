@@ -20,10 +20,8 @@ public class DatabaseConnection {
     public void openConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
         connect = DriverManager
-                .getConnection("jdbc:mysql://localhost/lms?"
-                        + "user=root&password=haosql");
+                .getConnection("jdbc:mysql://localhost:3306/lms?useUnicode=true&characterEncoding=utf-8","root","haosql");
     }
-
     public void closeConnection() {
         try {
             if (resultSet != null) {

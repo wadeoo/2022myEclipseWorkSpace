@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.sm.controller;
 
 import com.sm.bean.SearchBookResultBean;
@@ -17,10 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Hardik
- */
 public class SearchBookController extends HttpServlet {
 
     /**
@@ -121,7 +112,7 @@ public class SearchBookController extends HttpServlet {
                 {
                     request.setAttribute(Constants.STATUS_BODY, "Search success.");
                 } else {
-                    request.setAttribute(Constants.STATUS_BODY, "Search success. But search results limited to 5000 rows. Please change search constraints for better results.");
+                    request.setAttribute(Constants.STATUS_BODY, "Search success. But search results limited to 2000 rows. Please change search constraints for better results.");
                 }
                 
                 request.setAttribute(Constants.BOOK_SEARCH_JSP_REQ, list);
