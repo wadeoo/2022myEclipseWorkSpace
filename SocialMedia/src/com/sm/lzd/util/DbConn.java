@@ -12,7 +12,7 @@ public class DbConn {
 	public static Connection getConnection(){
 		try {			
 			InitialContext context = new InitialContext();
-			DataSource dSource = (DataSource) context.lookup("java:comp/env/jdbc/onlinefriend");
+			DataSource dSource = (DataSource) context.lookup("java:comp/env/jdbc/socialMedia");
 			Connection conn = dSource.getConnection();
 			
 			return conn;						
