@@ -12,7 +12,7 @@
 <!-- 权限校验，是否登录，是否有权限执行该操作 -->
   <servlet>
     <servlet-name>checkPermission</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleCheckPermission</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleCheckPermission</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>checkPermission</servlet-name>
@@ -24,7 +24,7 @@
 <!-- 注册 -->
   <servlet>
     <servlet-name>register</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleRegister</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleRegister</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>register</servlet-name>
@@ -33,7 +33,7 @@
 <!-- 登录 -->
   <servlet>
     <servlet-name>login</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleLogin</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleLogin</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>login</servlet-name>
@@ -42,7 +42,7 @@
 <!-- 验证码绘制 -->
   <servlet>
     <servlet-name>drawValidateCode</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleDrawValidateCode</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleDrawValidateCode</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>drawValidateCode</servlet-name>
@@ -51,7 +51,7 @@
 <!-- 登录成员信息 -->
   <servlet>
     <servlet-name>loginedMember</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleShowLoginedMember</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleShowLoginedMember</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>loginedMember</servlet-name>
@@ -60,7 +60,7 @@
 <!-- 上传图片 -->
   <servlet>
     <servlet-name>uploadImage</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleUploadImage</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleUploadImage</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>uploadImage</servlet-name>
@@ -69,7 +69,7 @@
 <!-- 成员信息显示 -->
   <servlet>
     <servlet-name>showMember</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleShowMember</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleShowMember</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>showMember</servlet-name>
@@ -78,7 +78,7 @@
 <!-- 修改密码 -->
   <servlet>
     <servlet-name>modifyPassword</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleModifyPassword</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleModifyPassword</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>modifyPassword</servlet-name>
@@ -87,7 +87,7 @@
 <!-- 修改注册信息 -->
   <servlet>
     <servlet-name>modifyRegisterMess</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleModifyRegisterMess</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleModifyRegisterMess</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>modifyRegisterMess</servlet-name>
@@ -96,7 +96,7 @@
 <!-- 退出登录 -->
   <servlet>
     <servlet-name>exitLogin</servlet-name>
-    <servlet-class>com.zifangsky.OnlineFriend.servlet.member.HandleExit</servlet-class>
+    <servlet-class>com.sm.lzd.servlet.member.HandleExit</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>exitLogin</servlet-name>
@@ -108,7 +108,7 @@
  <!-- 文章列表 --> 
   <servlet>
 	<servlet-name>articleList</servlet-name>
-	<servlet-class>com.zifangsky.OnlineFriend.servlet.article.HandleArticleShowList</servlet-class>
+	<servlet-class>com.sm.lzd.servlet.article.HandleArticleShowList</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>articleList</servlet-name>
@@ -118,7 +118,7 @@
  <!-- 单个文章详细信息 --> 
   <servlet>
 	<servlet-name>articleContent</servlet-name>
-	<servlet-class>com.zifangsky.OnlineFriend.servlet.article.HandleArticleShowContent</servlet-class>
+	<servlet-class>com.sm.lzd.servlet.article.HandleArticleShowContent</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>articleContent</servlet-name>
@@ -128,7 +128,7 @@
 <!-- 添加新文章 --> 
   <servlet>
 	<servlet-name>articleAdd</servlet-name>
-	<servlet-class>com.zifangsky.OnlineFriend.servlet.article.HandleArticleAdd</servlet-class>
+	<servlet-class>com.sm.lzd.servlet.article.HandleArticleAdd</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>articleAdd</servlet-name>
@@ -138,7 +138,7 @@
 <!-- 修改文章 --> 
   <servlet>
 	<servlet-name>articleModify</servlet-name>
-	<servlet-class>com.zifangsky.OnlineFriend.servlet.article.HandleArticleModify</servlet-class>
+	<servlet-class>com.sm.lzd.servlet.article.HandleArticleModify</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>articleModify</servlet-name>
@@ -148,7 +148,7 @@
 <!-- 删除文章 --> 
   <servlet>
 	<servlet-name>articleDelete</servlet-name>
-	<servlet-class>com.zifangsky.OnlineFriend.servlet.article.HandleArticleDelete</servlet-class>
+	<servlet-class>com.sm.lzd.servlet.article.HandleArticleDelete</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>articleDelete</servlet-name>

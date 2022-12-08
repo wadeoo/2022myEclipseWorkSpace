@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
 
 import com.sun.rowset.CachedRowSetImpl;
 import com.sm.lzd.model.article.ShowByPage;
@@ -19,10 +22,13 @@ import com.sm.lzd.util.DbConn;
 import com.sm.lzd.util.StringUtil;
 
 public class HandleArticleShowList extends HttpServlet{
-	private CachedRowSetImpl rowSet = null;
+//	private CachedRowSetImpl rowSet = null;
+	
+	private CachedRowSet rowSet=null;
 
 	public void init(ServletConfig config)throws ServletException{
 		super.init(config);
+
 	}
 	
 	public void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException{
@@ -65,7 +71,13 @@ public class HandleArticleShowList extends HttpServlet{
 		try {
 			PreparedStatement pStatement = connection.prepareStatement("select id,title from article");
 			ResultSet resultSet = pStatement.executeQuery();
-			rowSet = new CachedRowSetImpl();
+//			rowSet = new CachedRowSetImpl();
+			try {
+				rowSet=RowSetProvider.newFactory().createCachedRowSet();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			rowSet.populate(resultSet);
 			rowSet.last();
 			int m = rowSet.getRow();  //×ÜÐÐÊý
