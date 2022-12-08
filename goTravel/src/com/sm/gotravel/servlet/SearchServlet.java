@@ -24,7 +24,7 @@ public class SearchServlet extends HttpServlet {
         }
         else {
             Search.day = getDay(Search.date);
-            resp.sendRedirect("/search-results.jsp");
+            resp.sendRedirect("/goTravel/search-results.jsp");
         }
     }
 

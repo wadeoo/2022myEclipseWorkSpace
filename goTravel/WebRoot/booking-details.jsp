@@ -37,9 +37,9 @@
 
 <body>
 <div class="w3-bar w3-white w3-card" id="myNavbar">
-    <a href="/index.jsp" class="w3-bar-item w3-button w3-wide"><img src="img/favicon.png" class="img-fluid" alt="image" width="18%">  FlyAway</a>
+    <a href="/goTravel/index.jsp" class="w3-bar-item w3-button w3-wide"><img src="img/favicon.png" class="img-fluid" alt="image" width="18%">  FlyAway</a>
     <div class="w3-right w3-hide-small">
-        <a href="/login.jsp" class="w3-bar-item w3-button"><i class="fa fa-gear"></i> Admin Login</a>
+        <a href="/goTravel/login.jsp" class="w3-bar-item w3-button"><i class="fa fa-gear"></i> Admin Login</a>
     </div>
 </div>
     <section class="container-fluid bg">

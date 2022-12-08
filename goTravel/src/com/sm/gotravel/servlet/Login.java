@@ -22,7 +22,7 @@ public class Login extends HttpServlet {
         if (email.equals(Login.email) && pass.equals(Login.password)){
             isLoggedIn = true;
             out.println("You have LoggedIn");
-            resp.sendRedirect("/admin-dashboard.jsp");
+            resp.sendRedirect("/goTravel/admin-dashboard.jsp");
         }
         else {
             isLoggedIn = false;
