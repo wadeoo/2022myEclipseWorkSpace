@@ -45,43 +45,43 @@ public class HandleModifyPassword extends HttpServlet{
 		HttpSession session = request.getSession(true);
 		Login loginBean = (Login) session.getAttribute("login");
 		
-		String id = loginBean.getId();  //鑾峰彇宸茬櫥鐢ㄦ埛褰曠殑id
+		String id = loginBean.getId();  //获取已登用户录的id
 		ModifyPassword passwordBean = new ModifyPassword();
 		request.setAttribute("password", passwordBean);
-		//鑾峰彇杈撳叆鐨勫弬鏁�
+		//获取输入的参数
 		String oldPassword = StringUtil.xssEncode(request.getParameter("oldPassword").trim());
 		String newPassword = StringUtil.xssEncode(request.getParameter("newPassword").trim());
 		
-		//寮�濮嬫洿鏂�
+		//开始更新
 		Connection connection = DbConn.getConnection();
 		try {
-			//鍒ゆ柇鏃у瘑鐮佹槸鍚︽纭�
+			//判断旧密码是否正确
 			PreparedStatement pStatementQuery = connection.prepareStatement("select id from member where id=? and password =?");
 			pStatementQuery.setString(1, id);
 			pStatementQuery.setString(2, oldPassword);
 			ResultSet resultSet = pStatementQuery.executeQuery();
 			
 			if(resultSet.next()){
-				//濡傛灉姝ｇ‘鍒欐洿鏂板瘑鐮�
+				//如果正确则更新密码
 				PreparedStatement pStatementUpdate = connection.prepareStatement("update member set password=? where id=?");
 				pStatementUpdate.setString(1, newPassword);
 				pStatementUpdate.setString(2, id);
 				int num = pStatementUpdate.executeUpdate();
-				//鎵ц鎴愬姛杩斿洖1
+				//执行成功返回1
 				if(num == 1){
-					passwordBean.setBackNews("瀵嗙爜鏇存柊鎴愬姛");
+					passwordBean.setBackNews("密码更新成功");
 					passwordBean.setNewPassword(newPassword);
 					passwordBean.setModifyPasswordOk(true);
-					session.invalidate();  //鏇存柊瀵嗙爜鍚庢秷闄ession锛岄渶瑕侀噸鏂扮櫥褰�
+					session.invalidate();  //更新密码后消除session，需要重新登录
 				}
 				else
-					passwordBean.setBackNews("瀵嗙爜鏇存柊澶辫触");			
+					passwordBean.setBackNews("密码更新失败");			
 			}
 			else
-				passwordBean.setBackNews("瀵嗙爜鏇存柊澶辫触");			
+				passwordBean.setBackNews("密码更新失败");			
 			connection.close();
 		} catch (Exception e) {
-			passwordBean.setBackNews("瀵嗙爜鏇存柊澶辫触");			
+			passwordBean.setBackNews("密码更新失败");			
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("member/showNewPasswordMess.jsp");

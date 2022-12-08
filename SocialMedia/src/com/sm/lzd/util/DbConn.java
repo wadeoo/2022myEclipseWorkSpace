@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 public class DbConn {	
 	/**
-	 * 閫氳繃JNDI杩炴帴姹犵殑鏂瑰紡
+	 * 通过JNDI连接池的方式
 	 * */
 	public static Connection getConnection(){
 		try {			
@@ -23,7 +23,7 @@ public class DbConn {
 	}
 	
 	/**
-	 * 鏈�鍩烘湰鐨勬柟寮�
+	 * 最基本的方式
 	 * */
 //	private static String driver = "com.mysql.jdbc.Driver";
 //	private static String url = "jdbc:mysql://127.0.0.1:3306/onlinefriend?useUnicode=true&characterEncoding=utf-8";
@@ -32,9 +32,9 @@ public class DbConn {
 	
 //	public static Connection getConnection(){
 //		try {
-//			//鍔犺浇椹卞姩
+//			//加载驱动
 //			Class.forName(driver);			
-//			//杩炴帴鏁版嵁搴�
+//			//连接数据库
 //			Connection conn = DriverManager.getConnection(url,user,passwd);
 //		
 //			return conn;						

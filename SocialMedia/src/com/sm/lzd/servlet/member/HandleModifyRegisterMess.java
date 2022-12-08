@@ -43,16 +43,16 @@ public class HandleModifyRegisterMess extends HttpServlet{
 		HttpSession session = request.getSession(true);
 		Login loginBean = (Login) session.getAttribute("login");
 		
-		String id = loginBean.getId();  //鑾峰彇宸茬櫥鐢ㄦ埛褰曠殑id
+		String id = loginBean.getId();  //获取已登用户录的id
 		ModifyMessage modifyMessage = new ModifyMessage();
 		request.setAttribute("modifyMess", modifyMessage);
 		
-		//鑾峰彇杈撳叆鍙傛暟
+		//获取输入参数
 		String newEmail = StringUtil.xssEncode(request.getParameter("newEmail").trim());
 		String newPhone = StringUtil.xssEncode(request.getParameter("newPhone").trim());
 		String newMessage = StringUtil.xssEncode(request.getParameter("newMessage"));
 		
-		//寮�濮嬫洿鏂�
+		//开始更新
 		Connection connection = DbConn.getConnection();
 		try {
 			PreparedStatement pStatement = connection.prepareStatement("update member set email=?,phone=?,message=? where id=?");
@@ -63,17 +63,17 @@ public class HandleModifyRegisterMess extends HttpServlet{
 			
 			int num = pStatement.executeUpdate();
 			if(num == 1){
-				modifyMessage.setBackNews("淇敼淇℃伅鎴愬姛");
+				modifyMessage.setBackNews("修改信息成功");
 				modifyMessage.setModifyRegisterMessageOk(true);
 				modifyMessage.setNewEmail(newEmail);
 				modifyMessage.setNewPhone(newPhone);
 				modifyMessage.setNewMessage(newMessage);
 			}
 			else
-				modifyMessage.setBackNews("鏇存柊澶辫触锛屼俊鎭～鍐欎笉瀹屾暣鎴栦俊鎭腑鍚湁闈炴硶瀛楃");
+				modifyMessage.setBackNews("更新失败，信息填写不完整或信息中含有非法字符");
 			connection.close();
 		} catch (Exception e) {
-			modifyMessage.setBackNews("淇℃伅鏇存柊澶辫触");
+			modifyMessage.setBackNews("信息更新失败");
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("member/showModifyRegisterMess.jsp");

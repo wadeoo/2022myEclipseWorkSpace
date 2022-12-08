@@ -24,7 +24,7 @@ import com.sm.lzd.util.DbConn;
 import com.sm.lzd.util.StringUtil;
 
 public class HandleShowMember extends HttpServlet{
-	private CachedRowSet rowSet = null;
+	private CachedRowSetImpl rowSet = null;
 	
 	public void init(ServletConfig config)throws ServletException{
 		super.init(config);
@@ -39,7 +39,7 @@ public class HandleShowMember extends HttpServlet{
 			return;
 		}
 		else
-			continueDoPost(request,response);  //鏄剧ず鍏ㄤ綋鎴愬憳淇℃伅
+			continueDoPost(request,response);  //显示全体成员信息
 	
 	}
 
@@ -48,7 +48,7 @@ public class HandleShowMember extends HttpServlet{
 		response.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession(true);
 		ShowByPage showByPageBean = null;
-		//鍥犱负娑夊強鍒扮炕椤甸棶棰橈紝闇�瑕佽繖涓猙ean闀挎湡瀛樺湪锛宻cope璁句负session
+		//因为涉及到翻页问题，需要这个bean长期存在，scope设为session
 		try {
 			showByPageBean = (ShowByPage) session.getAttribute("showAllMember");
 			if(showByPageBean == null){
@@ -60,7 +60,7 @@ public class HandleShowMember extends HttpServlet{
 			session.setAttribute("showAllMember", showByPageBean);
 		}
 		
-		showByPageBean.setPageSize(3);  //姣忛〉鏄剧ず3鏉℃暟鎹�
+		showByPageBean.setPageSize(3);  //每页显示3条数据
 		int showPage = Integer.parseInt(StringUtil.xssEncode(request.getParameter("showPage")));
 		if(showPage > showByPageBean.getPageAllCount())
 			showPage = 1;
@@ -72,17 +72,11 @@ public class HandleShowMember extends HttpServlet{
 		try {
 			PreparedStatement pStatement = connection.prepareStatement("select id,email,phone,message,pic from member");
 			ResultSet resultSet = pStatement.executeQuery();
-//			rowSet = new CachedRowSetImpl();
-			try {
-				rowSet=RowSetProvider.newFactory().createCachedRowSet();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			rowSet = new CachedRowSetImpl();
 			rowSet.populate(resultSet);			
-			rowSet.last();  //鎸囧悜缁撴灉闆嗙殑鏈熬
-			int m = rowSet.getRow();  //鎬昏鏁�
-			int n = showByPageBean.getPageSize();  //姣忛〉鏄剧ず鐨勮褰曟暟
+			rowSet.last();  //指向结果集的末尾
+			int m = rowSet.getRow();  //总行数
+			int n = showByPageBean.getPageSize();  //每页显示的记录数
 			if(m%n ==0)
 				showByPageBean.setPageAllCount(m/n);
 			else
@@ -108,14 +102,14 @@ public class HandleShowMember extends HttpServlet{
 		if(loginBean == null)
 			response.sendRedirect("login.jsp");
 		else
-			continueDoGet(request, response);  //鏄剧ず鎸囧畾鎴愬憳淇℃伅
+			continueDoGet(request, response);  //显示指定成员信息
 	}
 
 	private void continueDoGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		//鎸囧畾鎴愬憳鐨刬d
+		//指定成员的id
 		String id = StringUtil.xssEncode(request.getParameter("selectedId"));
 		MemberInform memberInformBean = new MemberInform();
 		request.setAttribute("memberInform", memberInformBean);
@@ -126,7 +120,7 @@ public class HandleShowMember extends HttpServlet{
 			preparedStatement.setString(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if(resultSet.next()){
-				memberInformBean.setBackNews("鏌ヨ鍒扮殑浼氬憳淇℃伅锛�");
+				memberInformBean.setBackNews("查询到的会员信息：");
 				memberInformBean.setSelectOk(true);
 				memberInformBean.setId(resultSet.getString(1));
 				memberInformBean.setEmail(resultSet.getString(2));
@@ -135,12 +129,12 @@ public class HandleShowMember extends HttpServlet{
 				memberInformBean.setPic(resultSet.getString(5));
 			}
 			else
-				memberInformBean.setBackNews("鏈煡鍒颁换浣曚俊鎭�傘�傘��");
+				memberInformBean.setBackNews("未查到任何信息。。。");
 		
 			preparedStatement.close();
 			connection.close();
 		} catch (Exception e) {
-			memberInformBean.setBackNews("鏈煡鍒颁换浣曚俊鎭�傘�傘��");
+			memberInformBean.setBackNews("未查到任何信息。。。");
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("member/showLookedMember.jsp");

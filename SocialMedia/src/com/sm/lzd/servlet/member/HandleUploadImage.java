@@ -55,26 +55,26 @@ public class HandleUploadImage extends HttpServlet{
 		UploadFile uploadFileBean = new UploadFile();
 		request.setAttribute("userImage", uploadFileBean);
 			
-		boolean isMultipart = ServletFileUpload.isMultipartContent(request);  //鍒ゆ柇鎻愪氦鐨勮〃鍗曟槸鍚︽槸鏂囦欢涓婁紶琛ㄥ崟
-		String savedFileName = "";  //鏈�鍚庝繚瀛樼殑鏂囦欢鍚�
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);  //判断提交的表单是否是文件上传表单
+		String savedFileName = "";  //最后保存的文件名
 		String backNews = "";
 		if(isMultipart){
-			FileItemFactory fileItemFactory = new DiskFileItemFactory();  //鑾峰緱纾佺洏鏂囦欢鏉＄洰宸ュ巶 
-			ServletFileUpload upload = new ServletFileUpload(fileItemFactory);  //楂樻按骞崇殑API鏂囦欢涓婁紶澶勭悊  
+			FileItemFactory fileItemFactory = new DiskFileItemFactory();  //获得磁盘文件条目工厂 
+			ServletFileUpload upload = new ServletFileUpload(fileItemFactory);  //高水平的API文件上传处理  
 			try {
-				FileItem item =  (FileItem) upload.parseRequest(request).get(0);  //鍙湁涓�涓笂浼犳枃浠讹紝鍙栫涓�涓嵆鍙�
+				FileItem item =  (FileItem) upload.parseRequest(request).get(0);  //只有一个上传文件，取第一个即可
 
-//				String path1 = request.getRealPath("/data/userfile/image");  //姝ゆ柟娉曞凡缁忚繃鏃�
-//				String path1 = session.getServletContext().getRealPath("/data/userfile/image");  //涔熷彲浠ヨ繖鏍峰啓
-				String path1 = this.getServletContext().getRealPath("/data/userfile/image");  //鏂囦欢淇濆瓨璺緞
+//				String path1 = request.getRealPath("/data/userfile/image");  //此方法已经过时
+//				String path1 = session.getServletContext().getRealPath("/data/userfile/image");  //也可以这样写
+				String path1 = this.getServletContext().getRealPath("/data/userfile/image");  //文件保存路径
 
 				
 				if(!item.isFormField()){
-					String value = StringUtil.xssEncode(item.getName());  //鑾峰彇涓婁紶鏂囦欢鐨勬枃浠跺悕
+					String value = StringUtil.xssEncode(item.getName());  //获取上传文件的文件名
 					int start = value.lastIndexOf("\\");
-					String fileName = value.substring(start+1);  //鏂囦欢鍚�
+					String fileName = value.substring(start+1);  //文件名
 					String filetype = "jpg";
-					//杩囨护鏂囦欢鏍煎紡
+					//过滤文件格式
 					if (fileName.length() > 0) {   
 			            int start1 = fileName.lastIndexOf('.');   
 			            if ((start1 >-1) && (start1 < (fileName.length() - 1))) {  
@@ -84,23 +84,23 @@ public class HandleUploadImage extends HttpServlet{
 			            }   
 					}
 														
-					//閲嶅懡鍚嶆枃浠�
+					//重命名文件
 					String fileName1 = StringUtil.getNewFileNameString(5)+"."+filetype;	
 					savedFileName = fileName1;
 					item.write(new File(path1,fileName1));
 /*						
-					//淇濆瓨鏂囦欢锛屾墜鍔ㄥ啓
+					//保存文件，手动写
 					OutputStream out = new FileOutputStream(new File(path1,fileName1));                   
                     InputStream in = item.getInputStream() ;                        
                     int temp = 0 ;  
                     byte [] buf = new byte[1024] ;  
                       
-                    System.out.println("鑾峰彇涓婁紶鏂囦欢鐨勬�诲叡鐨勫閲忥細"+item.getSize());  
+                    System.out.println("获取上传文件的总共的容量："+item.getSize());  
   
-                    // in.read(buf) 姣忔璇诲埌鐨勬暟鎹瓨鏀惧湪   buf 鏁扮粍涓�  
+                    // in.read(buf) 每次读到的数据存放在   buf 数组中  
                     while((temp = in.read(buf)) != -1)  
                     {  
-                        //鍦�   buf 鏁扮粍涓� 鍙栧嚭鏁版嵁 鍐欏埌 锛堣緭鍑烘祦锛夌鐩樹笂  
+                        //在   buf 数组中 取出数据 写到 （输出流）磁盘上  
                         out.write(buf, 0, temp);                         
                     }                       
                     in.close();  
@@ -108,15 +108,15 @@ public class HandleUploadImage extends HttpServlet{
 */					
 				}	
 				
-				backNews = "鍥惧儚涓婁紶鎴愬姛";
+				backNews = "图像上传成功";
 				uploadFileBean.setUploadFileOk(true);
 				uploadFileBean.setSavedFileName(savedFileName);
 			} catch (Exception e) {
-				backNews = "鍥惧儚涓婁紶澶辫触";	
+				backNews = "图像上传失败";	
 			}
 		}
 		
-		//鏇存柊鏁版嵁搴�
+		//更新数据库
 		Connection connection = DbConn.getConnection();
 		try {
 			PreparedStatement pStatement = connection.prepareStatement("update member set pic=? where id=?");
@@ -125,12 +125,12 @@ public class HandleUploadImage extends HttpServlet{
 			
 			int num = pStatement.executeUpdate();
 			if(num == 1)
-				backNews = backNews + "锛屾洿鏂版暟鎹簱鎴愬姛";
+				backNews = backNews + "，更新数据库成功";
 			else
-				backNews = backNews + "锛屾洿鏂版暟鎹簱澶辫触";	
+				backNews = backNews + "，更新数据库失败";	
 			connection.close();
 		} catch (SQLException e) {
-			backNews = backNews + "锛屾洿鏂版暟鎹簱澶辫触";	
+			backNews = backNews + "，更新数据库失败";	
 		}
 		uploadFileBean.setBackNews(backNews);
 				

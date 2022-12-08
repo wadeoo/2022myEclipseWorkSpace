@@ -16,7 +16,7 @@ import com.sm.lzd.util.DbConn;
 import com.sm.lzd.util.StringUtil;
 
 public class HandleRegister extends HttpServlet{
-	private String backNews = "",pic = "public.jpg";  //pic涓哄浘鐗囦俊鎭�
+	private String backNews = "",pic = "public.jpg";  //pic为图片信息
 	
 	public void init(ServletConfig config) throws ServletException{
 		super.init(config);
@@ -28,17 +28,17 @@ public class HandleRegister extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		//鑾峰彇娉ㄥ唽淇℃伅
+		//获取注册信息
 		String id = StringUtil.xssEncode(request.getParameter("id").trim());
 		String password = StringUtil.xssEncode(request.getParameter("password").trim());
 		String email = StringUtil.xssEncode(request.getParameter("email").trim());
 		String phone = StringUtil.xssEncode(request.getParameter("phone").trim());
 		String message = StringUtil.xssEncode(request.getParameter("message"));
 		
-		boolean isSuccess = false;  //鍒ゆ柇娉ㄥ唽淇℃伅鏄惁绗﹀悎瑙勫畾
+		boolean isSuccess = false;  //判断注册信息是否符合规定
 		if(StringUtil.isNotEmpty(id) &&StringUtil.isNotEmpty(password)){
 			isSuccess = true;
-			//鍒ゆ柇id鏄惁绗﹀悎鏍囧噯
+			//判断id是否符合标准
 			for(int i=0;i<id.length();i++){
 				char c = id.charAt(i);
 				if(!((c>='a'&&c<='z') || (c>='A'&&c<='Z') || (c>='0'&&c<='9'))){
@@ -48,7 +48,7 @@ public class HandleRegister extends HttpServlet{
 			}
 		}
 				
-		//鍚� mysql 涓敞鍐岀敤鎴�			
+		//向 mysql 中注册用户			
 		try {	
 			if(isSuccess){
 				Connection conn = DbConn.getConnection();
@@ -60,10 +60,10 @@ public class HandleRegister extends HttpServlet{
 				preparedStatement.setString(5, message);
 				preparedStatement.setString(6, pic);
 				
-				//鎵ц鎴愬姛杩斿洖琛屾暟澶т簬0
+				//执行成功返回行数大于0
 				int num = preparedStatement.executeUpdate();
 				if(num != 0){
-					backNews = "娉ㄥ唽鎴愬姛";
+					backNews = "注册成功";
 					registerBean.setBackNews(backNews);
 					registerBean.setId(id);
 					registerBean.setPassword(password);
@@ -76,11 +76,11 @@ public class HandleRegister extends HttpServlet{
 				conn.close();
 			}
 			else{
-				backNews = "淇℃伅濉啓涓嶅畬鏁存垨鑰呭悕瀛椾腑鏈夐潪娉曞瓧绗�";
+				backNews = "信息填写不完整或者名字中有非法字符";
 				registerBean.setBackNews(backNews);
 			}			
 		} catch (SQLException e) {
-			backNews = "璇D宸茶浣跨敤锛岃鏇存崲ID";
+			backNews = "该ID已被使用，请更换ID";
 			registerBean.setBackNews(backNews);
 		}
 				

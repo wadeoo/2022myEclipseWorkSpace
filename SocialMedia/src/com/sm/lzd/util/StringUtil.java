@@ -10,11 +10,11 @@ import javax.sql.rowset.CachedRowSet;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import com.sun.rowset.CachedRowSetImpl;
+//import com.sun.rowset.CachedRowSetImpl;
 
 public class StringUtil {
 	/**
-	 * 瀛楃涓叉牸寮忚浆鎹�
+	 * 字符串格式转换
 	 * 
 	 * */
 	public static String handleString(String str){
@@ -28,10 +28,10 @@ public class StringUtil {
 	}
 	
 	/**
-	 * 鍒ゆ柇瀛楃涓叉槸鍚︿负绌�
-	 * @param str String绫诲瀷鐨勫瓧绗︿覆
+	 * 判断字符串是否为空
+	 * @param str String类型的字符串
 	 * 
-	 * @return 涓嶄负绌鸿繑鍥� true
+	 * @return 不为空返回 true
 	 * */
 	public static boolean isNotEmpty(String str){
 		if(!"".equals(str) && str != null)
@@ -41,7 +41,7 @@ public class StringUtil {
 	}
 	
 	/**
-	 * 灏嗕竴涓瓧绗︿覆涓殑灏忓啓瀛楁瘝杞崲涓哄ぇ鍐欏瓧姣�
+	 * 将一个字符串中的小写字母转换为大写字母
 	 * 
 	 * */
 	public static String convertToCapitalString(String src)
@@ -51,7 +51,7 @@ public class StringUtil {
           for (int i = 0; i < array.length; i++)
           {
               temp = (int) array[i];
-              if (temp <= 122 && temp >= 97){ // array[i]涓哄皬鍐欏瓧姣�
+              if (temp <= 122 && temp >= 97){ // array[i]为小写字母
                    array[i] = (char) (temp - 32);
               }
            }
@@ -59,11 +59,11 @@ public class StringUtil {
        }  
 	
 	/**
-	 * 瀛楃涓瞂SS杩囨护锛孞avaScript杩囨护锛孲ql杩囨护
+	 * 字符串XSS过滤，JavaScript过滤，Sql过滤
 	 * 
-	 * @param str 浼犲叆鐨勫瓧绗︿覆
+	 * @param str 传入的字符串
 	 * 
-	 * @return 杞箟鍚庣殑瀛楃涓�
+	 * @return 转义后的字符串
 	 * */
 	public static String xssEncode(String str){
 		String s = StringEscapeUtils.escapeHtml(str);
@@ -73,15 +73,15 @@ public class StringUtil {
 	}
 	
 	/**
-	 * 鑾峰彇褰撳墠鏃堕棿浠ュ強闅忔満鐨刲ength涓瓧绗︾粍鎴愮殑瀛楃涓诧紝鐢ㄦ潵閲嶅懡鍚嶆枃浠�
-	 * @param length 鏃ユ湡鍚庨潰鐨勯殢鏈哄瓧绗︿覆鐨勯暱搴�
+	 * 获取当前时间以及随机的length个字符组成的字符串，用来重命名文件
+	 * @param length 日期后面的随机字符串的长度
 	 * 
-	 * @return 褰撳墠绮剧‘鍒版绉掔殑鏃堕棿+length闀垮害鐨勯殢鏈哄瓧绗︿覆缁勬垚鐨勫瓧绗︿覆
+	 * @return 当前精确到毫秒的时间+length长度的随机字符串组成的字符串
 	 * */
 	public static String getNewFileNameString(int length){
 		String base = "qwertyuioplkjhgfdsazxcvbnm0123456789";
 		Date date = new Date();
-		Format format = new SimpleDateFormat("yyyyMMddHHmmssSSS");  //鏍煎紡鍖栧綋鍓嶆椂闂达紝绮剧‘鍒版绉�
+		Format format = new SimpleDateFormat("yyyyMMddHHmmssSSS");  //格式化当前时间，精确到毫秒
 		String dateString = format.format(date);	
 		
 		Random random = new Random();
@@ -96,17 +96,17 @@ public class StringUtil {
 	}
 	
 	/**
-	 * 灏嗕粠鏁版嵁搴撲腑鍙栧嚭鐨勬暟鎹互琛ㄦ牸褰㈠紡鏄剧ず
-	 * @param page 褰撳墠鏄剧ず椤�
-	 * @param pageSize 姣忛〉鏄剧ず璁板綍鏁�
-	 * @param rowSet 瀛樺偍琛ㄤ腑鍏ㄩ儴璁板綍鐨勮闆嗗璞�
+	 * 将从数据库中取出的数据以表格形式显示
+	 * @param page 当前显示页
+	 * @param pageSize 每页显示记录数
+	 * @param rowSet 存储表中全部记录的行集对象
 	 * 
-	 * @return 琛ㄦ牸鏍煎紡鍖栧悗鐨勫寘鍚墍鏈夎褰曠殑StringBuffer
+	 * @return 表格格式化后的包含所有记录的StringBuffer
 	 * */
 	public static StringBuffer showMember(int page,int pageSize,CachedRowSet rowSet){
 		StringBuffer str = new StringBuffer();
 		try {
-			rowSet.absolute((page-1)*pageSize + 1);  //鎸囧悜褰撳墠椤电殑绗竴涓厓绱�
+			rowSet.absolute((page-1)*pageSize + 1);  //指向当前页的第一个元素
 			for(int i=1;i<=pageSize;i++){
 				str.append("<tr>");
 				str.append("<td align=left>" + rowSet.getString(1) + "</td>");
@@ -126,18 +126,17 @@ public class StringUtil {
 	}
 	
 	/**
-	 * 鏄剧ず鏂囩珷鍒楄〃
-	 * @param page 褰撳墠鏄剧ず椤�
-	 * @param pageSize 姣忛〉鏄剧ず璁板綍鏁�
-	 * @param rowSet 瀛樺偍琛ㄤ腑鍏ㄩ儴璁板綍鐨勮闆嗗璞�
+	 * 显示文章列表
+	 * @param page 当前显示页
+	 * @param pageSize 每页显示记录数
+	 * @param rowSet 存储表中全部记录的行集对象
 	 * 
-	 * @return 琛ㄦ牸鏍煎紡鍖栧悗鐨勫寘鍚墍鏈夎褰曠殑StringBuffer
+	 * @return 表格格式化后的包含所有记录的StringBuffer
 	 * */
-//	public static StringBuffer showArticleTitle(int page,int pageSize,CachedRowSetImpl rowSet){
 	public static StringBuffer showArticleTitle(int page,int pageSize,CachedRowSet rowSet){
 		StringBuffer str = new StringBuffer();
 		try {
-			rowSet.absolute((page-1)*pageSize + 1);  //鎸囧悜褰撳墠椤电殑绗竴涓厓绱�
+			rowSet.absolute((page-1)*pageSize + 1);  //指向当前页的第一个元素
 			str.append("<br>");
 			for(int i=1;i<=pageSize;i++){
 				str.append("<tr>");

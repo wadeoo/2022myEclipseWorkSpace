@@ -1,4 +1,4 @@
-package com.sm.lzd.servlet.member;
+package com.sm.lzd.servlet.member;//we are not using this shit 
 
 import java.io.IOException;
 
