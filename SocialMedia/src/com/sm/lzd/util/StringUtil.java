@@ -103,7 +103,7 @@ public class StringUtil {
 	 * 
 	 * @return 琛ㄦ牸鏍煎紡鍖栧悗鐨勫寘鍚墍鏈夎褰曠殑StringBuffer
 	 * */
-	public static StringBuffer showMember(int page,int pageSize,CachedRowSetImpl rowSet){
+	public static StringBuffer showMember(int page,int pageSize,CachedRowSet rowSet){
 		StringBuffer str = new StringBuffer();
 		try {
 			rowSet.absolute((page-1)*pageSize + 1);  //鎸囧悜褰撳墠椤电殑绗竴涓厓绱�
