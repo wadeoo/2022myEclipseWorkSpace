@@ -1,12 +1,12 @@
-<%@page import="com.sun.xml.internal.bind.v2.model.core.ID"%>
+<%-- <%@page import="com.sun.xml.internal.bind.v2.model.core.ID"%> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %> 
-    <%@ page import="com.zifangsky.OnlineFriend.model.member.ModifyPassword"%>
-<jsp:useBean id="password" type="com.zifangsky.OnlineFriend.model.member.ModifyPassword" scope="request"/>
+    <%@ page import="com.sm.lzd.model.member.ModifyPassword"%>
+<jsp:useBean id="password" type="com.sm.lzd.model.member.ModifyPassword" scope="request"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

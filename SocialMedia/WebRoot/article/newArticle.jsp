@@ -4,8 +4,8 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%@ page import="com.zifangsky.OnlineFriend.model.member.Login"%>
-<jsp:useBean id="login" type="com.zifangsky.OnlineFriend.model.member.Login" scope="session"/>
+<%@ page import="com.sm.lzd.model.member.Login"%>
+<jsp:useBean id="login" type="com.sm.lzd.model.member.Login" scope="session"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
