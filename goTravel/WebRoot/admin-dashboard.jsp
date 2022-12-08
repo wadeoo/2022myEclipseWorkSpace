@@ -14,10 +14,12 @@
 //    String userId = "XxYrWXRjWf";
 //    String password = "CcEE3g9IWg";
 
-    String connectionUrl = "jdbc:mysql://remotemysql.com/";
-    String dbName = "03ZeLcEdG3";
-    String userId = "03ZeLcEdG3";
-    String password = "TGuPoOIlq9";
+    /* String connectionUrl = "jdbc:mysql://remotemysql.com/"; */
+    String connectionUrl="jdbc:mysql://localhost:3306/";
+    /* jdbc:mysql://127.0.0.1:3306/socialMedia?useUnicode=true&characterEncoding=utf-8 */
+    String dbName = "gotravel";
+    String userId = "root";
+    String password = "haosql";
 
     try {
         Class.forName(driverName);

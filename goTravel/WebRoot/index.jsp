@@ -57,8 +57,8 @@
             <span class="w3-large">Book International Flight Tickets at best prices</span>
         </div>
         <div class="w3-display-left w3-text-white" style="padding:48px">
-            <p><br><br><br><br><br><br><br><br><br><br><a href="/search-portal.jsp" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-on"><i class="fa fa-fighter-jet"></i>  Book Flights</a></p>
-            <p><a href="/login.jsp" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-on"><i class="fa fa-gear"></i>   Admin Login</a></p>
+            <p><br><br><br><br><br><br><br><br><br><br><a href="/goTravel/search-portal.jsp" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-on"><i class="fa fa-fighter-jet"></i>  Book Flights</a></p>
+            <p><a href="/goTravel/login.jsp" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-on"><i class="fa fa-gear"></i>   Admin Login</a></p>
         </div>
     </header>
     <div class="footer">

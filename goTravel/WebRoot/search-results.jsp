@@ -8,10 +8,10 @@
 //    String userId = "root";
 //    String password = "adminadmin";
 
-    String connectionUrl = "jdbc:mysql://remotemysql.com/";
-    String dbName = "03ZeLcEdG3";
-    String userId = "03ZeLcEdG3";
-    String password = "TGuPoOIlq9";
+    String connectionUrl = "jdbc:mysql://localhost:3306/";
+    String dbName = "gotravel";
+    String userId = "root";
+    String password = "haosql";
 
     String query = Search.getQuery();
     try {

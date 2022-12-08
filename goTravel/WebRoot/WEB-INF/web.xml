@@ -5,7 +5,7 @@
          version="4.0">
     <servlet>
         <servlet-name>searchFlight</servlet-name>
-        <servlet-class>servlets.SearchServlet</servlet-class>
+        <servlet-class>com.sm.gotravel.servlet.SearchServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>searchFlight</servlet-name>
@@ -14,7 +14,7 @@
 
     <servlet>
         <servlet-name>adminLogin</servlet-name>
-        <servlet-class>servlets.Login</servlet-class>
+        <servlet-class>com.sm.gotravel.servlet.Login</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>adminLogin</servlet-name>
@@ -23,7 +23,7 @@
 
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
-        <servlet-class>servlets.ChangePassword</servlet-class>
+        <servlet-class>com.sm.gotravel.servlet.ChangePassword</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ChangePassword</servlet-name>
